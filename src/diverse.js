@@ -1,6 +1,4 @@
-
-
-
+const server_address = process.env.REACT_APP_SERVER_ADDRESS
 
 
 function addParamInUrl(nameParam, valueParam){
@@ -19,6 +17,7 @@ function deleteParamFromUrl(nameParam){
     window.history.pushState(null, '', `${window.location.pathname}?${urlParams}`);
 }
 
-export {     
+export { 
+    server_address,    
     addParamInUrl, getParamFromUrl, deleteParamFromUrl,
 }
