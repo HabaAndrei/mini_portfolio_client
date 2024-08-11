@@ -110,7 +110,6 @@ const AddTask = () => {
           style={{maxWidth: '500px', maxHeight: '300px', "marginLeft": "auto","marginRight": "auto"}}
           className="rounded-lg bg-gray-100"
           src={file?.url}
-          // src={`${server_address}/uploads/ok.jpg`}
           />
 
           
@@ -168,4 +167,3 @@ const AddTask = () => {
 export default AddTask;
 
 
-// titlul, descrierea, imaginea, link-ul către site-ul clientului și statusul (ascuns/afișat). 
