@@ -13,6 +13,7 @@ const AddTask = () => {
   const [description, setDescription] = useState('');
 
   const [arWithIMG, setArWithIMG] = useState([]);
+  const [ok, setOk] = useState();
 
   
 
@@ -21,7 +22,9 @@ const AddTask = () => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('image', file);
+    // console.log(formData);
     const urlIMG = URL.createObjectURL(file);
+    setOk(formData)
     setFile({url: urlIMG, data: file});
 
   }
@@ -32,45 +35,39 @@ const AddTask = () => {
       return [{image: file.url, data: file.data}, ...prev.slice(0, 3)];
     });
     setFile();
-    // if(!getParamFromUrl('id_task')){
-    //   const id_task = uuidv4().slice(0, 10);
-    //   addParamInUrl('id_task', id_task);
-    // } 
   }
 
   function addTask(){
     if(!title.length || !link.length || !description.length || !arWithIMG.length){
-      // alert('nu ai ');
-      // return ;
+      alert('nu ai ');
+      return ;
     }
-    
-    console.log(arWithIMG[0].data);
-    
-    axios.post(`${server_address}/store_data`, 
-      // {title, link, description, arWithIMG: arWithIMG.map((ob)=>ob.data)}, 
-      arWithIMG[0].data,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+
+    let formDataMultipleImages = new FormData();
+    arWithIMG.forEach((ob)=>{
+      formDataMultipleImages.append("image", ob.data);
+    })
+
+
+    axios.post(`${server_address}/store_data`, formDataMultipleImages, {
+      params:{id : uuidv4().slice(0, 10), 
+        title, description, link
+      },
+      headers : {
+        "Content-Type": "multipart/form-data",
       }
-    ).then((data)=>{
-      console.log(data);
-    });
+    }).then((response)=>{
+      if(response?.data?.type){
+        console.log('totul s a adaugat cu succes!!!');
+      }else{
+        console.log('din pacat am dat de o eroare!!', response?.data?.type?.err )
+      }
+    }).catch((err)=>{
+      console.log(err);
+    }) 
+    
   }
 
-
-  function test(){
-
-
-    // axios.post('http://localhost:5500/api', {ok: 'ok'}).then((data)=>{
-    //   console.log(data);
-    // });
-
-    // axios.get('http://localhost:5500/api_get', {params :{ok: 'ok'}}).then((data)=>{
-    //   console.log(data);
-    // })
-  }
 
   return (
     <div>
@@ -113,6 +110,7 @@ const AddTask = () => {
           style={{maxWidth: '500px', maxHeight: '300px', "marginLeft": "auto","marginRight": "auto"}}
           className="rounded-lg bg-gray-100"
           src={file?.url}
+          // src={`${server_address}/uploads/ok.jpg`}
           />
 
           
