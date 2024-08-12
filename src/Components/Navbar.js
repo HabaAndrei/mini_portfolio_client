@@ -34,45 +34,13 @@ const Navbar = (props) => {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               {navigation.map((item, index) => {
-                if(item.name === 'Conversatii'){
-                  return <button
-                    onClick={()=>{
-                      if(!props.setModalIsOpen)return;
-                      props.setModalIsOpen({type:true, data:{
-                        request: 'getAllConversations',
-                        uid: props.user.uid
-                      }})
-                    }}
-                    key={index}
-                    className={'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'}
-                  >
-                  {item.name} 
-                  </button>
-                }else if(item.name === 'Contul meu'){
-                  return <button
-                  onClick={()=>{
-                    
-                    if(!props.setModalIsOpen)return;
-                    props.setModalIsOpen({type:true, data:{
-                      request: 'getDataUser',
-                      'props.user' : props.user,
-                      "props.setUser" : props.setUser 
-                    }})
-                  }}
-                    key={index}
-                    className={'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'}
-                  >
-                  {item.name} 
-                  </button>
-                }else{
-                  return <button
-                    onClick={()=>navigate(item.href)}
-                    key={index}
-                    className={'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'}
-                  >
-                  {item.name}
-                  </button>
-                }
+                return <button
+                  onClick={()=>navigate(item.href)}
+                  key={index}
+                  className={'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'}
+                >
+                {item.name}
+                </button>
               })}
             </div>
           </div>
@@ -93,50 +61,13 @@ const Navbar = (props) => {
     <DisclosurePanel className="md:hidden">
       <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
         {navigation.map((item, index) => {                
-          if(item.name === 'Conversatii'){
-
-            return <button
-              onClick={()=>{
-                if(!props.setModalIsOpen)return;
-                props.setModalIsOpen({type:true, data:{
-                  request: 'getAllConversations',
-                  uid: props.user.uid
-                }})
-              }}
-              key={index}
-              className={'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'}
-            >
-            {item.name} 
-            </button>
-          
-          }else if(item.name === 'Contul meu'){
-            
-            return <button
-            onClick={()=>{
-              if(!props.setModalIsOpen)return;
-              props.setModalIsOpen({type:true, data:{
-                request: 'getDataUser',
-                'props.user' : props.user,
-                "props.setUser" : props.setUser
-              }})
-            }}
-              key={index}
-              className={'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'}
-            >
-            {item.name} 
-            </button>
-          
-          
-          }else{
-            return <DisclosureButton
-              onClick={()=>navigate(item.href)}
-              key={index}
-              className={'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'}
-            >
-            {item.name}
-            </DisclosureButton>
-
-          }
+          return <DisclosureButton
+            onClick={()=>navigate(item.href)}
+            key={index}
+            className={'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'}
+          >
+          {item.name}
+          </DisclosureButton>  
         })}
       </div>
       

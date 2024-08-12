@@ -1,19 +1,20 @@
 import React from 'react'
 import Navbar from '../Components/Navbar'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import {server_address, addParamInUrl, getParamFromUrl, deleteParamFromUrl} from '../diverse.js';
 import axios from 'axios';
+import Alert from '../Components/Alert.js';
 
-const AddTask = () => {
+const AddTask = (props) => {
 
+  const navigate = useNavigate();
   const [file, setFile] = useState();
   const [title, setTitle] = useState('');
   const [link, setLink] = useState('');
   const [description, setDescription] = useState('');
-
   const [arWithIMG, setArWithIMG] = useState([]);
-  const [ok, setOk] = useState();
 
   
 
@@ -22,9 +23,7 @@ const AddTask = () => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('image', file);
-    // console.log(formData);
     const urlIMG = URL.createObjectURL(file);
-    setOk(formData)
     setFile({url: urlIMG, data: file});
 
   }
@@ -39,7 +38,7 @@ const AddTask = () => {
 
   function addTask(){
     if(!title.length || !link.length || !description.length || !arWithIMG.length){
-      alert('nu ai ');
+      props.setArAlert((prev)=>[...prev, {type: 'warning', mes: 'Complete all the fields'}])
       return ;
     }
 
@@ -58,11 +57,13 @@ const AddTask = () => {
       }
     }).then((response)=>{
       if(response?.data?.type){
-        console.log('totul s a adaugat cu succes!!!');
+        props.setArAlert((prev)=>[...prev, {type: 'succes', mes: 'Succes'}])
+        navigate('/');
       }else{
-        console.log('din pacat am dat de o eroare!!', response?.data?.type?.err )
+        props.setArAlert((prev)=>[...prev, {type: 'warning', mes: 'Unfortunately, the action was not completed'}])
       }
     }).catch((err)=>{
+      props.setArAlert((prev)=>[...prev, {type: 'warning', mes: 'Unfortunately, the action was not completed'}])
       console.log(err);
     }) 
     
@@ -71,10 +72,10 @@ const AddTask = () => {
 
   return (
     <div>
+
+      <Alert setArAlert={props.setArAlert} arAlert={props.arAlert} />
+      
       <Navbar/>
-
-      {/* titlul, descrierea, imaginea, link-ul  */}
-
 
       <div>
         <div  style={{marginTop: '20px' }} className="max-w-md mx-auto">
@@ -136,7 +137,6 @@ const AddTask = () => {
           <br  style={{height: '20px'}} />
           <button 
             onClick={addTask}
-            // onClick={test}
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >Add task</button>
         </div>
@@ -147,7 +147,7 @@ const AddTask = () => {
 
       <div
         style={{margin: '10px'}}
-      className="grid grid-cols-2 grid-rows-2 gap-4 sm:gap-6 lg:gap-8">
+        className="grid grid-cols-2 grid-rows-2 gap-4 sm:gap-6 lg:gap-8">
         {arWithIMG.map((ob, index)=>{
           return <img key={index}
             src={ob.image}
@@ -157,9 +157,6 @@ const AddTask = () => {
         
         
       </div>
-
-
-
     </div>
   )
 }

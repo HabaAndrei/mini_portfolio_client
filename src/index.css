@@ -16,3 +16,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.notifications::-webkit-scrollbar {
+  display: none;
+}
+
+.onCenter{
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.eye-icon {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  margin: 1px;
+}
+
+.divPtHover:hover .eye-icon {
+  visibility: visible;
+}
