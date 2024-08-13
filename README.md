@@ -20,3 +20,14 @@ You can easily get the project up and running by following these steps:
     npm start
     
 Enjoy coding!
+
+
+
+
+## Screenshots
+
+  ![Home](https://github.com/HabaAndrei/mini_portfolio_client/blob/main/imgs/3.png)
+
+  ![Edit task](https://github.com/HabaAndrei/mini_portfolio_client/blob/main/imgs/2.png)
+
+  ![Add task](https://github.com/HabaAndrei/mini_portfolio_client/blob/main/imgs/1.png)
