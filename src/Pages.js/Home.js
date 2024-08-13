@@ -14,7 +14,7 @@ const Home = (props) => {
 
 
     const [arProducts, setArProducts] = useState([]);
-    const [openModal, setOpenModal] = useState({type: true})
+    const [openModal, setOpenModal] = useState({type: false})
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -89,11 +89,25 @@ const Home = (props) => {
     }
 
 
+    function changeProductFromState(title, link, description, id){
+        setArProducts((prev)=>{
+            let arNou  = prev.map((ob)=>{
+                if(ob.id === id){
+                    return {...ob, data: {...ob.data, title, link, description} }
+                }else{
+                    return ob;
+                }
+            })
+            return [...arNou];
+        })
+        setOpenModal({type: false});
+    }
+
     
   return (
     <div>
 
-        <ModalEdit openModal={openModal} setOpenModal={setOpenModal} />
+        <ModalEdit changeProductFromState={changeProductFromState} setArAlert={props.setArAlert} openModal={openModal} setOpenModal={setOpenModal} />
 
         <Alert setArAlert={props.setArAlert} arAlert={props.arAlert} />
 
@@ -152,7 +166,7 @@ const Home = (props) => {
 
                         <div className="flex justify-center space-x-4 " style={{'marginTop': '10px'}}>
                             <Trash onClick={() => deleteProduct(id)} />
-                            <Edit onClick={()=>setOpenModal({type: true})} />
+                            <Edit onClick={()=>setOpenModal({type: true, ob})} />
                         </div>
                     </div>
                 );
@@ -178,8 +192,6 @@ export default Home
 
 
 
-// functionalitati produs sa le ascunda 
-// stergere
 // modificare
 // documentatie 
 // in nest js fac ceva cu certifcatul , il bag in env
