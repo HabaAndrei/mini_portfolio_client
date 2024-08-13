@@ -62,8 +62,8 @@ const Home = (props) => {
         }
     }
 
-    function deleteProduct(id){
-        axios.post(`${server_address}/deleteProduct`, {id}).then((data)=>{
+    function deleteProduct(id, arImages){
+        axios.post(`${server_address}/deleteProduct`, {id, arImages}).then((data)=>{
             if(data.data.type){
 
                 setArProducts((prev)=>{
@@ -165,7 +165,7 @@ const Home = (props) => {
                         }
 
                         <div className="flex justify-center space-x-4 " style={{'marginTop': '10px'}}>
-                            <Trash onClick={() => deleteProduct(id)} />
+                            <Trash onClick={() => deleteProduct(id, data.data)} />
                             <Edit onClick={()=>setOpenModal({type: true, ob})} />
                         </div>
                     </div>
