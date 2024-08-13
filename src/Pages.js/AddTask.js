@@ -3,7 +3,7 @@ import Navbar from '../Components/Navbar'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import {server_address, addParamInUrl, getParamFromUrl, deleteParamFromUrl} from '../diverse.js';
+import {server_address} from '../diverse.js';
 import axios from 'axios';
 import Alert from '../Components/Alert.js';
 

@@ -37,10 +37,3 @@ const App = () => {
 
 export default App;
 
-
-
-// Portofoliu de lucrari artist digital 
-// cand sterg sa sterg si pozele din fisier !!
-//scris frumos in nest js 
-// Documentație: 
-// Include instrucțiuni clare pentru rularea aplicației și orice alte detalii relevante pentru evaluare. 

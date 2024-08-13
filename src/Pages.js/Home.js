@@ -18,21 +18,21 @@ const Home = (props) => {
     const navigate = useNavigate();
 
     useEffect(()=>{
-        try{
-            axios.get(`${server_address}/get_data`).then((response)=>{
-                if(response.data.type){
-                    let arData = response.data.data;
-                    let arNou = arData.map((ob)=>{
-                        return {...ob, description_hidden: false, images_hidden: false}
-                    });
-                    setArProducts(arNou);
-                }else{
-                    props.setArAlert((prev)=>[...prev, {type: 'warning', mes: 'Unfortunately we have an error when displaying the data'}])
-                }
-            })
-        }catch(err){
+        axios.get(`${server_address}/get_data`).then((response)=>{
+            if(response.data.type){
+                let arData = response.data.data;
+                let arNou = arData.map((ob)=>{
+                    return {...ob, description_hidden: false, images_hidden: false}
+                });
+                setArProducts(arNou);
+            }else{
+                props.setArAlert((prev)=>[...prev, {type: 'warning', mes: 'Unfortunately we have an error when displaying the data'}])
+            }
+        }).catch((err)=>{
             props.setArAlert((prev)=>[...prev, {type: 'warning', mes: 'Unfortunately we have an error when displaying the data'}])
-        }
+            console.log(err);
+        })
+        
     }, []);
 
 

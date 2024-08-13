@@ -1,9 +1,6 @@
 import React from 'react'
 
 
-
-
-
 const Alert = (props) => {
 
     function deleteNotification(indexToDelete){
@@ -12,9 +9,7 @@ const Alert = (props) => {
             return [...prev];
         })
     }
-
-
-    
+        
     return (
     <div>
         {props.arAlert.length ?  
